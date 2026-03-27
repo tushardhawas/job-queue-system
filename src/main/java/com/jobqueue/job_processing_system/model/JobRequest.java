@@ -6,8 +6,8 @@ public class JobRequest {
     String name;
 
     public JobRequest(String priority, String name) {
-        priority = priority;
-        name = name;
+        this.priority = priority;
+        this.name = name;
     }
 
     public String getpriority() {
