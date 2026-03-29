@@ -5,7 +5,8 @@ import com.jobqueue.job_processing_system.scheduler.JobScheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -19,12 +20,23 @@ public class JobService {
         this.scheduler = scheduler;
     }
 
-    public void saveRecord(String name, String priority) throws InterruptedException {
+    Map<Integer, Job> store = new ConcurrentHashMap<Integer, Job>();
+
+    public Job saveRecord(String name, String priority) throws InterruptedException {
         Job.Priority priority_ = Job.Priority.valueOf(priority.toUpperCase());
         Job job = new Job((long) ids.getAndIncrement(), name, priority_, "Pending", System.currentTimeMillis());
-        scheduler.add(job);
+        String status = scheduler.add(job);
+        job.setStatus(status);
+
+
+        store.put(ids.get(), job);
+        return job;
 
     }
+
+//    public JobService getStatus() {
+//        scheduler.add(new Job())
+//    }
 
 
 }

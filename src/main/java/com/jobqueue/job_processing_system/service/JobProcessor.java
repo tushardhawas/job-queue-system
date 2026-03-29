@@ -11,8 +11,9 @@ public class JobProcessor {
     @Async
     public void processJobs(Queue<Job> queue) throws InterruptedException {
         while (!queue.isEmpty()) {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             Job job = queue.poll();
+            job.setStatus("Completed");
             System.out.println("Processing job: " + job.getname());
         }
     }

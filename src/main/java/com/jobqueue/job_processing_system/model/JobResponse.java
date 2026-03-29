@@ -16,10 +16,10 @@ public class JobResponse {
     }
 
     public JobResponse(Long id, String priority, String name, String status) {
-        id = id;
-        priority = priority;
-        name = name;
-        status = status;
+        this.id = id;
+        this.priority = priority;
+        this.name = name;
+        this.status = status;
     }
 
     public Long getid() {

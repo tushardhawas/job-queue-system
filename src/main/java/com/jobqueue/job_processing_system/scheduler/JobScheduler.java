@@ -23,10 +23,18 @@ public class JobScheduler {
         this.jobProcessor = jobProcessor;
     }
 
-    public void add(Job job) throws InterruptedException {
-        queue.add(job);
-        if (queue.size() == 10) {
-            jobProcessor.processJobs(queue); // now async works
+    public String add(Job job) throws InterruptedException {
+        try {
+            queue.add(job);
+            job.setStatus("Awaiting");
+            if (queue.size() == 10) {
+                jobProcessor.processJobs(queue); // now async works
+            }
+            return "Awaiting";
+
+        } catch (Exception e) {
+            return "Failed";
+
         }
     }
 }

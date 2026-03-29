@@ -1,8 +1,14 @@
 package com.jobqueue.job_processing_system.model;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class JobRequest {
 
-    String priority;
+   String priority;
+    @NotBlank(message = "Name is Required")
     String name;
 
     public JobRequest(String priority, String name) {
@@ -15,7 +21,7 @@ public class JobRequest {
     }
 
     public void setpriority(String priority) {
-        priority = priority;
+        this.priority = priority;
     }
 
     public String getname() {
@@ -23,6 +29,6 @@ public class JobRequest {
     }
 
     public void setname(String name) {
-        name = name;
+        this.name = name;
     }
 }

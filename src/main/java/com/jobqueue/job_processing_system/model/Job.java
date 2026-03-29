@@ -38,10 +38,10 @@ public class Job {
         this.timestamp = timestamp;
     }
 
-    public Job(String priority, String name) {
+    public Job(Priority priority, String name) {
         id = id;
-        priority = priority;
-        name = name;
+        this.priority = priority;
+        this.name = name;
     }
 
     public String getStatus() {
