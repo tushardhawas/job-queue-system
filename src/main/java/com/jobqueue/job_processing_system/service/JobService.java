@@ -24,12 +24,12 @@ public class JobService {
 
     public Job saveRecord(String name, String priority) throws InterruptedException {
         Job.Priority priority_ = Job.Priority.valueOf(priority.toUpperCase());
-        Job job = new Job((long) ids.getAndIncrement(), name, priority_, "Pending", System.currentTimeMillis());
+        Job job = new Job( ids.getAndIncrement(), name, priority_, "Pending", System.currentTimeMillis());
+        store.put(job.getid(), job);
         String status = scheduler.add(job);
         job.setStatus(status);
 
 
-        store.put(ids.get(), job);
         return job;
 
     }

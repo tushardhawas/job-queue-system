@@ -1,7 +1,7 @@
 package com.jobqueue.job_processing_system.model;
 
 public class Job {
-    Long id;
+    Integer id;
     Priority priority;
     String name;
     String status;
@@ -22,7 +22,7 @@ public class Job {
         }
     }
 
-    public Job(Long id, String name, Priority priority, String status, long timestamp) {
+    public Job(Integer id, String name, Priority priority, String status, long timestamp) {
         this.id = id;
         this.name = name;
         this.priority = priority;
@@ -53,7 +53,7 @@ public class Job {
     }
 
 
-    public Long getid() {
+    public Integer getid() {
         return id;
     }
 

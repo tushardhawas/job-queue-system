@@ -2,7 +2,7 @@ package com.jobqueue.job_processing_system.model;
 
 public class JobResponse {
 
-    Long id;
+    Integer id;
     String priority;
     String name;
     String status;
@@ -15,18 +15,18 @@ public class JobResponse {
         status = status;
     }
 
-    public JobResponse(Long id, String priority, String name, String status) {
+    public JobResponse(Integer id, String priority, String name, String status) {
         this.id = id;
         this.priority = priority;
         this.name = name;
         this.status = status;
     }
 
-    public Long getid() {
+    public Integer getid() {
         return id;
     }
 
-    public void setid(Long id) {
+    public void setid(Integer id) {
         id = id;
     }
 

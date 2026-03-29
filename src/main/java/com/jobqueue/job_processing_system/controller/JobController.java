@@ -1,21 +1,28 @@
 package com.jobqueue.job_processing_system.controller;
 
+import com.jobqueue.job_processing_system.model.AuditLog;
 import com.jobqueue.job_processing_system.model.Job;
 import com.jobqueue.job_processing_system.model.JobRequest;
 import com.jobqueue.job_processing_system.model.JobResponse;
+import com.jobqueue.job_processing_system.service.AuditService;
 import com.jobqueue.job_processing_system.service.JobService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class JobController {
 
     private final JobService obj;
-
+    @Autowired
+    private AuditService audit;
 
     public JobController(JobService obj) {
         this.obj = obj;
@@ -32,5 +39,9 @@ public class JobController {
         } catch (Exception e) {
         }
         return null;
+    }
+    @GetMapping("/audit-logs")
+    public ResponseEntity<List<AuditLog>> getAuditLogs() {
+        return ResponseEntity.ok(audit.getAllLogs());
     }
 }

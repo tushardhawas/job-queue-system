@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Service
 public class JobScheduler {
@@ -23,8 +25,11 @@ public class JobScheduler {
         this.jobProcessor = jobProcessor;
     }
 
+    private final Lock lock = new ReentrantLock();
+
     public String add(Job job) throws InterruptedException {
         try {
+            lock.lock();
             queue.add(job);
             job.setStatus("Awaiting");
             if (queue.size() == 10) {
@@ -34,7 +39,29 @@ public class JobScheduler {
 
         } catch (Exception e) {
             return "Failed";
+        } finally {
+            lock.unlock();
+        }
+    }
 
+    public void getNextJob() {
+        try {
+            lock.lock();
+            Job temp = queue.poll();
+            if (temp != null) System.out.println("Retrieved job from queue: " + temp.getname());
+
+        } catch (Exception e) {
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public boolean isEmpty() {
+        lock.lock();
+        try {
+            return queue.isEmpty();
+        } finally {
+            lock.unlock();
         }
     }
 }
